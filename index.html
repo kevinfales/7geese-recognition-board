@@ -6,7 +6,9 @@
     <title>7Geese Recognition Wall</title>
 
     <script type="text/javascript" src="jam/require.js"></script>
-    <script type="text/javascript">
+    <!-- For browsers that lack the JSON object. -->
+    <script>window.JSON || document.write('<script src="app/lib/json2.js"><\/script>')</script>
+    <script id="entry-point" type="text/javascript">
     require.config({
         paths: {
             'cs': 'app/cs',
@@ -18,6 +20,5 @@
   </head>
 
   <body>
-
   </body>
 </html>
