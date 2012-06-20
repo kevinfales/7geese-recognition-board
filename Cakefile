@@ -16,3 +16,9 @@ task 'packages', 'Install/update packages.', ->
 
     jam.stdout.on 'data', outputStdout
     jam.stderr.on 'data', outputStdout
+
+task 'clean', 'Delete all unnecessary files.', ->
+    rm = child_process.spawn 'rm', ['-rf', 'jam']
+
+    rm.stdout.on 'data', outputStdout
+    rm.stderr.on 'data', outputStdout
