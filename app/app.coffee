@@ -1,2 +1,5 @@
-require ['jquery'], ->
-    $ -> console.log "Hello, World!"
+define 'app/app', [], ->
+    return {
+        init: ->
+            console.log "Hello, World!"
+    }

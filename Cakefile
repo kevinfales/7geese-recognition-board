@@ -4,7 +4,14 @@ fs = require 'fs'
 outputStdout = (data) ->
     console.log data.toString('utf8').trim()
 
-task 'packages', 'Install/update packages.', ->
+spawnProcess = (command, args) ->
+    process = child_process.spawn command, args
+    process.stdout.on 'data', outputStdout
+    process.stderr.on 'data', outputStdout
+
+    return process
+
+createPackages = ->
     config = JSON.parse fs.readFileSync('config.json', 'utf8')
 
     args = ['install']
@@ -12,13 +19,52 @@ task 'packages', 'Install/update packages.', ->
     for k, v of config.deps
         args.push "#{k}#{if v != '*' then '@'+v else ''}"
 
-    jam = child_process.spawn 'jam', args
+    jam = spawnProcess 'jam', args
 
-    jam.stdout.on 'data', outputStdout
-    jam.stderr.on 'data', outputStdout
+    return jam
+
+build = ->
+    args = ['compile', '-i', 'app/main', '-o', 'jam/require.js']
+    jam = spawnProcess 'jam', args
+
+watchLess = ->
+    args = ['--directory', 'less']
+    less = spawnProcess 'watch-less', args
+
+checkJamExists = ->
+    jamExists = false
+    try
+        stats = fs.lstatSync('jam')
+
+        if stats.isDirectory()
+            jamExists = true
+    catch e
+        jamExists = false
+
+    return jamExists
+
+compileLess = ->
+    lessc = spawnProcess 'lessc', ['less/style.less', '>', 'less/style.less.css']
+    return lessc
+
+task 'packages', 'Install/update packages.', ->
+    createPackages()
+
+task 'build', 'Compile and compress the JavaScript code.', ->
+    jamExists = checkJamExists
+
+    if not jamExists
+        createPackages().on 'exit', ->
+            build()
+    else
+        build()
+
+task 'run', 'Run the system', ->
+    compileLess().on 'exit', ->
+        createPackages().on 'exit', ->
+            simpleServer = spawnProcess 'simple-server'
+            watchLess()
 
 task 'clean', 'Delete all unnecessary files.', ->
-    rm = child_process.spawn 'rm', ['-rf', 'jam']
-
-    rm.stdout.on 'data', outputStdout
-    rm.stderr.on 'data', outputStdout
+    spawnProcess 'rm', ['-rf', 'jam']
+    spawnProcess 'rm', ['-f', 'less/style.less.css']

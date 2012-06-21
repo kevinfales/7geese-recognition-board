@@ -1,15 +1,22 @@
 This is the recognition board.
 
-To get it up and running, be sure to have Node.js installed, as well as CoffeeScript.
+## Requirements
 
-Then, you would have install the dependencies.
+Be sure to have Node.js installed. Additionally, you would also need to install CoffeeScript, simple-server and Jam.
 
-Type out the following.
+They're simple to install. Just run the following commands.
+    
+    # Note, however, that they may require root access to install.
+    $ npm install -g coffee-script
+    $ npm install -g simple-server
+    $ npm install -g jam
 
-    $ cake packages
+And you should be ready.
 
-And you should be already.
+## Running
 
-## Note
+Call the following command.
 
-Since the dependencies are loaded via AJAX, then you will need to place the project on some server. You could use something like Apache, RoR, simple-server, etc.
+    $ cake run
+
+And it should work.

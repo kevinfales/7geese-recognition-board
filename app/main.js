@@ -1,1 +1,7 @@
-require(['cs!app/app'], function () {});
+define('app/main', ['cs!app/app'], function (app) {
+    return {
+        init: function () {
+            app.init();
+        }
+    }
+});
