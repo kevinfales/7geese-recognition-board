@@ -44,7 +44,7 @@ checkJamExists = ->
     return jamExists
 
 compileLess = ->
-    lessc = spawnProcess 'lessc', ['less/style.less', '>', 'less/style.less.css']
+    lessc = spawnProcess 'lessc', ['less/style.less', 'less/style.less.css']
     return lessc
 
 task 'packages', 'Install/update packages.', ->
