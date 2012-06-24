@@ -1,9 +1,10 @@
-define 'app/views/LoginView', [
-    'text!login-view-template.html'
+define [
+    'text!templates/login-view-template.html'
 
     'backbone'
     'underscore'
 ], (template) ->
+
     Backbone = require 'backbone'
     _ = require 'underscore'
 

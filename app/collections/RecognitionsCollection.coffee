@@ -1,4 +1,4 @@
-define 'app/collections/RecognitionsCollection', [
+define [
     'backbone'
 ], ->
     Backbone = require 'backbone'

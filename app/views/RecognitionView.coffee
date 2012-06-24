@@ -1,4 +1,4 @@
-define 'app/views/RecognitionView', ['backbone'] ->
+define ['backbone'] ->
 
     Backbone = require 'backbone'
 

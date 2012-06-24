@@ -1,4 +1,4 @@
-define 'app/views/MainView', [
+define [
     # Texts.
     'text!templates/main.html'
 
@@ -11,7 +11,7 @@ define 'app/views/MainView', [
     _ = require 'underscore'
     Backbone = require 'backbone'
 
-    LoginView = require 'app/views/LoginView'
+    LoginView = require 'cs!app/views/LoginView'
 
     return class MainView extends Backbone.View
         initialize: ->
