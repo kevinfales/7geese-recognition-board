@@ -1,22 +1,29 @@
-This is the recognition board.
+# Getting Started
 
-## Requirements
+This template relies heavily on Node.js.
 
-Be sure to have Node.js installed. Additionally, you would also need to install CoffeeScript, simple-server and Jam.
-
-They're simple to install. Just run the following commands.
+You'd also need a few packages installed before you continue.
     
-    # Note, however, that they may require root access to install.
+    # Note: may require root access.
     $ npm install -g coffee-script
-    $ npm install -g simple-server
-    $ npm install -g jam
+    $ npm install -g less
+    $ npm install -g jamjs
 
-And you should be ready.
+And then, there are some local dependencies required as well. Just use `npm` for that.
 
-## Running
+    $ npm install
 
-Call the following command.
+And done.
 
-    $ cake run
+We're almost there.
 
-And it should work.
+    $ cake deps:install
+
+
+Done.
+
+Now, since a lot of the stuff require AJAX calls, be sure you access the index.html file from a server, rather than opening it directly on the browser.
+
+## Adding Dependencies
+
+To add depenendencies to the code just open up the `jam.json` file, and add your dependencies from there.

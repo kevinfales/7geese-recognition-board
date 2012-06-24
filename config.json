@@ -1,7 +1,0 @@
-{
-    "deps": {
-        "jquery": "1.7.x",
-        "backbone": "0.9.x",
-        "text": "*"
-    }
-}

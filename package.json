@@ -1,0 +1,9 @@
+{
+    "name": "jam-template",
+    "version": "0.0.2",
+    "author": "Salehen Shovon Rahman",
+    "description": "Just a simple little template that uses the Jam Package Manager.",
+    "dependencies": {
+        "async": "0.1.22"
+    }
+}

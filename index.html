@@ -4,19 +4,20 @@
 
   <head>
     <meta charset="utf-8">
-    <title>7Geese Recognition Wall</title>
 
-    <link rel="stylesheet" href="less/style.less.css">
+    <!-- Change the title here. -->
+    <title>Untitled</title>
 
+    <script type="text/javascript">window.JSON || document.write('<script type="text\/javascript" src="js/lib/json2.js"><\/script>')</script>
     <script type="text/javascript" src="jam/require.js"></script>
-    <script type="text/javascript">window.JSON || document.write('<script src="app/lib/json2.js"><\/script>')</script>
     <script type="text/javascript">
-    require(['app/main'], function (app) {app.init();});
+    require(['app/main'], function () {
+        var main = require('app/main');
+        main.init();
+    });
     </script>
   </head>
 
-  <body>
-
-  </body>
+  <body></body>
 
 </html>

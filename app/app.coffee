@@ -1,11 +1,5 @@
-define 'app/app', ['jquery', 'cs!app/views/MainView'], ->
-    MainView = require 'app/views/MainView'
-    $ = require 'jquery'
-
+define ['jquery', 'cs!app/views/MainView'], ->
     return {
         init: ->
-            mainView = new MainView
-            mainView.render()
-
-            $('body').html mainView.el
+            # This is where your code shall begin
     }
