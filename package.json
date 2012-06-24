@@ -4,6 +4,8 @@
     "author": "Salehen Shovon Rahman",
     "description": "Just a simple little template that uses the Jam Package Manager.",
     "dependencies": {
-        "async": "0.1.22"
+        "async": "0.1.x",
+        "findit": "0.1.x",
+        "mkdirp": "0.3.x"
     }
 }
