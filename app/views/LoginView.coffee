@@ -1,5 +1,5 @@
 define [
-    'text!templates/login-view-template.html'
+    'text!templates/login.html'
 
     'backbone'
     'underscore'
@@ -8,7 +8,7 @@ define [
     Backbone = require 'backbone'
     _ = require 'underscore'
 
-    template = _.template require 'text!templates/login-view-template.html'
+    template = _.template require 'text!templates/login.html'
 
     return class LoginView extends Backbone.View
         events:

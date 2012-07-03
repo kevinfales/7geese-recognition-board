@@ -8,8 +8,18 @@
 </div>
 
 <div class="message">
-  was recognized for<br>
-  <strong></strong><br>
-  by <%= actor.displayName %> for:<br>
-  &ldquo;<%= content %>&rdquo;
+  <div class="rule"></div>
+
+  <span class="reason-by all-caps">
+
+    <span class="header">was recognized for</span><br>
+    <span class="reason"><strong><%= object.displayName %></strong></span><br>
+    <span class="footer">by <strong><%= actor.displayName %></strong> for</span>:
+
+  </span>
+
+  <br>
+
+  <span class="recognition-message">&ldquo;<%= content %>&rdquo;</span>
+
 </div>

@@ -1,6 +1,8 @@
 define [
     'text!templates/badge.html'
 
+    'lessc!less/views/BadgeView.less'
+
     'underscore'
     'backbone'
 ], ->
@@ -11,6 +13,8 @@ define [
     template = _.template require 'text!templates/badge.html'
 
     return class Badge extends Backbone.View
+        className: 'badge-view'
+
         initialize: ->
             if !@model?
                 throw "No model has been defined."

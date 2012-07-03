@@ -3,7 +3,7 @@ define [
     'backbone'
 
     'cs!app/views/LoginView'
-    'cs!app/views/BadgeView'
+    'cs!app/views/RecognitionView'
     'cs!app/models/RecognitionModel'
 ], (template) ->
 
@@ -11,7 +11,7 @@ define [
     Backbone = require 'backbone'
 
     LoginView = require 'cs!app/views/LoginView'
-    RecognitionView = require 'cs!app/views/BadgeView'
+    RecognitionView = require 'cs!app/views/RecognitionView'
     RecognitionModel = require 'cs!app/models/RecognitionModel'
 
     return class MainView extends Backbone.View
