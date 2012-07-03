@@ -6,6 +6,7 @@
     "dependencies": {
         "async": "0.1.x",
         "findit": "0.1.x",
-        "mkdirp": "0.3.x"
+        "mkdirp": "0.3.x",
+        "watch": "0.5.x"
     }
 }

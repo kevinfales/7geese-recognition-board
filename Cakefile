@@ -4,6 +4,7 @@ findit        = require 'findit'
 fs            = require 'fs'
 path          = require 'path'
 mkdirp        = require 'mkdirp'
+watch         = require 'watch'
 
 outputStdout = (data) ->
     console.log data.toString('utf8').trim()
@@ -72,12 +73,41 @@ cleanBuild = (cb) ->
                 callback null
 
         (callback) ->
+            rm = spawnChild 'rm', ['-rf', 'css/bin']
+            rm.on 'exit', ->
+                callback null
+
+        (callback) ->
             cleanCompiledLess ->
                 if cb?
                     cb()
     ]
 
-task 'build', 'Build and concatenate all script files.', ->
+buildStaticLess = (cb) ->
+    mkdirp "#{__dirname}/css/bin", "0777", (err, made) ->
+        lessc = spawnChild 'lessc', [ "#{__dirname}/less/static/style.less", "#{__dirname}/css/bin/style.css" ]
+
+        lessc.on 'exit', ->
+            console.log "Less files built."
+            if cb?
+                cb()
+
+        return lessc
+
+watchLess = ->
+    buildStaticLess ->
+        watch.createMonitor "#{__dirname}/less/static", (monitor) ->
+            monitor.on "created", ->
+                buildStaticLess()
+
+            monitor.on "changed", (f, curr, prev) ->
+                unless curr.mtime.getTime() == prev.mtime.getTime()
+                    buildStaticLess()
+
+            monitor.on "removed", ->
+                buildStaticLess()
+
+doBuild = (cb) ->
     async.waterfall [
         (callback) ->
             buildLessFiles ->
@@ -90,10 +120,30 @@ task 'build', 'Build and concatenate all script files.', ->
 
         (callback) ->
             jam = spawnChild 'jam', ['compile', '-i', 'app/main', '-o', 'jam/require.js']
+            jam.on 'exit', ->
+                callback null
+
+        (callback) ->
+            buildStaticLess ->
+                callback null
+
+        (callback) ->
+            if cb?
+                cb()
     ]
+
+task 'build', 'Build all script files, and compile the static LESS.', ->
+    doBuild()
+
+task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
+    doBuild ->
+        simpleServer = spawnChild 'simple-server'
 
 task 'build:less', 'Build the less files.', ->
     buildLessFiles()
+
+task 'buld:static-less', 'Bulid less files for the static site.', ->
+    buildStaticLess()
 
 task 'deps:install', 'Install all dependencies for the client-side.', ->
     async.waterfall [
@@ -119,4 +169,21 @@ task 'clean:all', 'Clear out all the unnecessary stuff, inscluding the node_modu
         (callback) ->
             rm = spawnChild 'rm', ['-rf', 'node_modules']
             rm.on 'exit', ->
+    ]
+
+task 'watch:less', 'Watch for changes in static less files.', ->
+    watchLess()
+
+task 'run', 'Run a server.', ->
+    async.waterfall [
+
+        (callback) ->
+            jam = spawnChild 'jam', [ 'install', 'jam.json' ]
+            jam.on 'exit', ->
+                callback null
+
+        (callback) ->
+            watchLess()
+            simpleServer = spawnChild 'simple-server'
+
     ]
