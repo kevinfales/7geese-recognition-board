@@ -17,6 +17,7 @@ spawnChild = (command, args) ->
     return process
 
 buildLessFiles = (callback) ->
+
     lessPending = 0
     doneReading = false
 
@@ -34,6 +35,12 @@ buildLessFiles = (callback) ->
 
     cleanCompiledLess ->
         mkdirp "#{__dirname}/less/.compiled", "0777", (err, made) ->
+            unless fs.readdirSync("#{__dirname}/less/.compiled").length > 1
+                lessPending++
+                doneReading = true
+                lessDone()
+                return
+
             if err?
                 throw err
 

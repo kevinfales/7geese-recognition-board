@@ -13,6 +13,8 @@ define [
 
     LoginView = require 'cs!app/views/LoginView'
 
+    template = _.template require 'text!templates/main.html'
+
     return class MainView extends Backbone.View
         initialize: ->
             # In the future, we might want to implement an auto-login system.

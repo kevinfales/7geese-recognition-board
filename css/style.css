@@ -502,3 +502,11 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+body {
+    background-color: #edf5f9;
+}
+
+input[type="text"] {
+    border: 1px solid black;
+}
