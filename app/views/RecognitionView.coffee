@@ -5,10 +5,14 @@ define [
     'backbone'
 
     'cs!app/views/BadgeView'
+    'cs!app/views/CommentsView'
 ], ->
     
     Backbone = require 'backbone'
+
     BadgeView = require 'cs!app/views/BadgeView'
+    CommentsView = require 'cs!app/views/CommentsView'
+
     template = _.template require 'text!templates/recognition.html'
 
     return class RecognitionView extends Backbone.View
@@ -18,6 +22,9 @@ define [
             @badgeView = new BadgeView
                 model: @model
 
+            @commentsView = new CommentsView
+                model: @model
+
         render: ->
             @$el.html template {}
 
@@ -25,3 +32,6 @@ define [
 
             @badgeView.render()
             @$filler.append @badgeView.el
+
+            @commentsView.render()
+            @$filler.append @commentsView.el

@@ -34,6 +34,27 @@ define [
                     content: "Done something really awesome."
                     actor:
                         displayName: "Salehen Rahman"
+                    comments: [{
+                        #created: "2012-06-15T23:10:14Z"
+                        timestamp: "2012-06-15T23:10:14"
+                        creator:
+                            profile_img: "https:\/\/7geesestorage.s3.amazonaws.com\/default_profile_images\/default_profile19.37x37.png"
+                            url: "http:\/\/192.168.10.129:8000\/#profile\/295"
+                            user:
+                                first_name: "Salehen"
+                                last_name: "Rahman"
+                        message: "Hello, World! This is awesome!"
+                    },{
+                        #created: "2012-06-15T23:10:14Z"
+                        timestamp: "2012-06-15T23:11:14"
+                        creator:
+                            profile_img: "https:\/\/7geesestorage.s3.amazonaws.com\/default_profile_images\/default_profile19.37x37.png"
+                            url: "http:\/\/192.168.10.129:8000\/#profile\/295"
+                            user:
+                                first_name: "Salehen"
+                                last_name: "Rahman"
+                        message: "This is extremely awesome!"
+                    }]
 
         render: ->
             @currentView.render()

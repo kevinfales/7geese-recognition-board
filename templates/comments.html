@@ -1,0 +1,35 @@
+<div class="comments">
+  <% $.each(comments, function (index, value) { %>
+    <div class="comment">
+
+      <div class="profile-pic">
+        <img
+          alt="<%= value.creator.user.first_name %> <%= value.creator.user.last_name %>"
+          src="<%= value.creator.profile_img %>">
+      </div>
+
+      <div class="body">
+
+        <div class="message">
+
+          <strong>
+            <a href="<%= value.creator.url %>">
+              <%= value.creator.user.first_name %>
+              <%= value.creator.user.last_name %>
+            </a>
+          </strong>
+
+          <%= value.message %>
+        </div>
+
+        <div class="time">
+          <%= moment(value.timestamp).format('LLL') %>
+        </div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+  <% }) %>
+</div>
