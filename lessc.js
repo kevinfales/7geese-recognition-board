@@ -97,8 +97,8 @@ define('lessc', [], function () {
             if (!isNodejs) {
                 newName = "../" + name;
             } else {
-                var filename = name.substr(name.lastIndexOf('/') + 1, name.length);
-                var dirname = name.substr(0, name.lastIndexOf('/'));
+                var filename = name.substr(name.indexOf('/') + 1, name.length);
+                var dirname = name.substr(0, name.indexOf('/'));
                 var compiledDirName = dirname + '/' + '.compiled/' + filename;
                 newName = compiledDirName;
             }

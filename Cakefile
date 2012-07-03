@@ -36,7 +36,7 @@ buildLessFiles = (callback) ->
 
     cleanCompiledLess ->
         mkdirp "#{__dirname}/less/.compiled", "0777", (err, made) ->
-            unless fs.readdirSync("#{__dirname}/less/.compiled").length > 1
+            unless fs.readdirSync("#{__dirname}/less/").length > 1
                 lessPending++
                 doneReading = true
                 lessDone()
