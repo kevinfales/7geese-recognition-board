@@ -96,16 +96,20 @@ buildStaticLess = (cb) ->
 
 watchLess = ->
     buildStaticLess ->
-        watch.createMonitor "#{__dirname}/less/static", (monitor) ->
-            monitor.on "created", ->
-                buildStaticLess()
-
-            monitor.on "changed", (f, curr, prev) ->
-                unless curr.mtime.getTime() == prev.mtime.getTime()
+        createMonitor = (dir) ->
+            watch.createMonitor dir, (monitor) ->
+                monitor.on "created", ->
                     buildStaticLess()
 
-            monitor.on "removed", ->
-                buildStaticLess()
+                monitor.on "changed", (f, curr, prev) ->
+                    unless curr.mtime.getTime() == prev.mtime.getTime()
+                        buildStaticLess()
+
+                monitor.on "removed", ->
+                    buildStaticLess()
+
+        createMonitor "#{__dirname}/less/static"
+        createMonitor "#{__dirname}/less/lib"
 
 doBuild = (cb) ->
     async.waterfall [
@@ -142,7 +146,7 @@ task 'build-run', 'Build all script files, compile the static LESS, and run the 
 task 'build:less', 'Build the less files.', ->
     buildLessFiles()
 
-task 'buld:static-less', 'Bulid less files for the static site.', ->
+task 'build:static-less', 'Bulid less files for the static site.', ->
     buildStaticLess()
 
 task 'deps:install', 'Install all dependencies for the client-side.', ->

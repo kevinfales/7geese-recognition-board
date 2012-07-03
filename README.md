@@ -8,6 +8,7 @@ You'd also need a few packages installed before you continue.
     $ npm install -g coffee-script
     $ npm install -g less
     $ npm install -g jamjs
+    $ npm install -g simple-server
 
 And then, there are some local dependencies required as well. Just use `npm` for that.
 
