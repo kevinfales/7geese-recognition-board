@@ -1,11 +1,13 @@
 define [
     'backbone'
+
+    'cs!app/models/RecognitionModel'
 ], ->
+
     Backbone = require 'backbone'
     $ = require 'jquery'
 
-    return class RecognitionsCollection extends Backbone.Collection
-        load: ->
-            deferred = $.getJSON "https://"
+    RecognitionModel = require 'cs!app/models/RecognitionModel'
 
-            return deferred
+    return class RecognitionsCollection extends Backbone.Collection
+        model: RecognitionModel
