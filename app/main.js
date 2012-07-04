@@ -1,6 +1,6 @@
 requirejs.config({
     shim: {
-        'js/jquery/jquery.masonry.min.js': ['jquery']
+        'app/jquery/jquery.masonry.min.js': ['jquery']
     }
 });
 

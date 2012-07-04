@@ -2,7 +2,7 @@ define [
     'lessc!less/views/LoginView.less'
     'text!templates/login.html'
 
-    'js/jquery/jquery.serializeobject.js'
+    'app/jquery/jquery.serializeobject.js'
 
     'cs!app/statics'
 

@@ -2,7 +2,7 @@ define [
     'backbone'
     'jquery'
 
-    'js/jquery/jquery.masonry.min.js'
+    'app/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
 ], ->
