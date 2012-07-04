@@ -33,6 +33,12 @@ The significance of this is that you also watch for changes in the CSS code for 
 
 Since this entire system is static, you don't need any special servers. However, you will still have to do some trickery before sending it off to the end-user. But it's nothing to complex. It's just a single command and you should be ready to go.
 
+And here's that magical command.
+
+    $ cake dist
+
+Boom. The compiled version should be ready for you in the `dist` folder.
+
 ## Adding Dependencies
 
 To add depenendencies to the code just open up the `jam.json` file, and add your dependencies from there.
