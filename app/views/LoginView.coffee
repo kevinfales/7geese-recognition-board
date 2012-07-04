@@ -47,7 +47,7 @@ define [
 
         transitionOut: (cb) ->
             @$el.transition
-                y: '-13px'
+                y: '-50px'
                 opacity: 0
             , ->
                 if cb?
@@ -55,7 +55,7 @@ define [
 
         displayPleaseWait: ->
             @form.transition
-                y: '-130px'
+                y: '-100px'
                 opacity: 0
 
             @pleaseWaitMessage.transition
