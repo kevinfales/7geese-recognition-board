@@ -1,15 +1,15 @@
+@import "less/lib/7g-colors.less";
+@import "less/lib/mixins.less";
+
 .recognition-view {
-    background-color: #dae8f0;
+    background-color: @7g_border_color;
     padding: 6px;
     border-radius: 10px;
     width: 329px;
     float: left;
     margin: 10px;
 
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
+    .transition(all 1s ease-in-out);
 
     .filler {
         border-radius: 6px;

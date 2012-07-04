@@ -1,5 +1,8 @@
 define [
+    'lessc!less/views/LoginView.less'
     'text!templates/login.html'
+
+    'js/jquery/jquery.serializeobject.js'
 
     'backbone'
     'underscore'
@@ -11,13 +14,17 @@ define [
     template = _.template require 'text!templates/login.html'
 
     return class LoginView extends Backbone.View
+        className: 'login-view'
+
         events:
             'submit form': 'formSubmitted'
 
         render: ->
             @$el.html template {}
 
+            @form = @$el.find 'form'
+
         formSubmitted: (e) ->
             e.preventDefault()
 
-            console.log "The form has been submitted."
+            @trigger 'formSubmitted', @form.serializeObject(), @form
