@@ -2,15 +2,15 @@ define [
     'backbone'
     'jquery'
 
+    'js/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
 ], ->
     Backbone = require 'backbone'
+    $ = require 'jquery'
 
     RecognitionView = require 'cs!app/views/RecognitionView'
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
-
-    $ = require 'jquery'
 
     return class BoardView extends Backbone.View
         initialize: ->
@@ -97,6 +97,6 @@ define [
                 recognitionView.render()
                 @$el.append recognitionView.el
 
-            $(@el).isotope
-                itemSelector: '.recognition-view'
-                layoutMode: 'fitRows'
+            $ =>
+                $(@el).masonry
+                    itemSelector: '.recognition-view'
