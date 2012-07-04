@@ -19,8 +19,6 @@ define [
 
     statics = (require "cs!app/statics")()
 
-    console.log statics
-
     return class LoginView extends Backbone.View
         className: 'login-view'
 
