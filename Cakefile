@@ -17,6 +17,12 @@ spawnChild = (command, args) ->
 
     return process
 
+cleanCompiledLess = (cb) ->
+    rm = spawnChild 'rm', ['-rf', 'less/.compiled']
+    rm.on 'exit', ->
+        if cb?
+            cb()
+
 buildLessFiles = (callback) ->
 
     lessPending = 0
@@ -59,22 +65,11 @@ buildLessFiles = (callback) ->
             finder.on 'end', ->
                 doneReading = true
 
-cleanCompiledLess = (cb) ->
-    rm = spawnChild 'rm', ['-rf', 'less/.compiled']
-    rm.on 'exit', ->
-        if cb?
-            cb()
-
 cleanBuild = (cb) ->
     async.waterfall [
         (callback) ->
-            rm = spawnChild 'rm', ['-rf', 'jam']
-            rm.on 'exit', ->
-                callback null
-
-        (callback) ->
-            rm = spawnChild 'rm', ['-rf', 'css/bin']
-            rm.on 'exit', ->
+            make = spawnChild 'make', ['clean']
+            make.on 'exit', ->
                 callback null
 
         (callback) ->
@@ -114,17 +109,11 @@ watchLess = ->
 doBuild = (cb) ->
     async.waterfall [
         (callback) ->
+            cleanBuild ->
+                callback null
+
+        (callback) ->
             buildLessFiles ->
-                callback null
-
-        (callback) ->
-            jam = spawnChild 'jam', ['install', 'jam.json']
-            jam.on 'exit', ->
-                callback null
-
-        (callback) ->
-            jam = spawnChild 'jam', ['compile', '-i', 'app/main', '-o', 'jam/require.js']
-            jam.on 'exit', ->
                 callback null
 
         (callback) ->
@@ -132,22 +121,43 @@ doBuild = (cb) ->
                 callback null
 
         (callback) ->
+            jam = spawnChild 'jam', [ 'install', 'jam.json' ]
+            jam.on 'exit', ->
+                callback null
+
+        (callback) ->
+            jam = spawnChild 'jam', [ 'compile', '-i', 'app/main', '-o', 'jam/require.js' ]
+            jam.on 'exit', ->
+                callback null
+
+        (callback) ->
             if cb?
                 cb()
     ]
 
+###
 task 'build', 'Build all script files, and compile the static LESS.', ->
     doBuild()
+###
+
+###
+task 'build:less', 'Build the less files.', ->
+    buildLessFiles()
+###
+
+###
+task 'build:static-less', 'Bulid less files for the static site.', ->
+    buildStaticLess()
+###
 
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
         simpleServer = spawnChild 'simple-server'
 
-task 'build:less', 'Build the less files.', ->
-    buildLessFiles()
+task 'dist', 'Prepare the project for distribution.', ->
+    doBuild ->
+        make = spawnChild 'make', ['dist']
 
-task 'build:static-less', 'Bulid less files for the static site.', ->
-    buildStaticLess()
 
 task 'deps:install', 'Install all dependencies for the client-side.', ->
     async.waterfall [
@@ -175,8 +185,10 @@ task 'clean:all', 'Clear out all the unnecessary stuff, inscluding the node_modu
             rm.on 'exit', ->
     ]
 
+###
 task 'watch:less', 'Watch for changes in static less files.', ->
     watchLess()
+###
 
 task 'run', 'Run a server.', ->
     async.waterfall [
@@ -189,5 +201,4 @@ task 'run', 'Run a server.', ->
         (callback) ->
             watchLess()
             simpleServer = spawnChild 'simple-server'
-
     ]
