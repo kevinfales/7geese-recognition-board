@@ -47,7 +47,7 @@ define [
 
         transitionOut: (cb) ->
             @$el.transition
-                y: '-100px'
+                y: '-13px'
                 opacity: 0
             , ->
                 if cb?
