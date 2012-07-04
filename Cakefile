@@ -80,7 +80,7 @@ cleanBuild = (cb) ->
 
 buildStaticLess = (cb) ->
     mkdirp "#{__dirname}/css/bin", "0777", (err, made) ->
-        lessc = spawnChild 'lessc', [ "#{__dirname}/less/static/style.less", "#{__dirname}/css/bin/style.css" ]
+        lessc = spawnChild 'lessc', [ "#{__dirname}/less/static/style.less", "#{__dirname}/css/bin/style.css", '--yui-compress' ]
 
         lessc.on 'exit', ->
             console.log "Less files built."
