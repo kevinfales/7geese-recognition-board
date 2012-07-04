@@ -27,6 +27,9 @@ define [
             ###
 
             $ =>
+                @$el.css
+                    opacity: 0
+
                 @recognitionsCollection.forEach (model) =>
                     recognitionView = new RecognitionView
                         model: model
@@ -35,5 +38,10 @@ define [
                     @$el.append recognitionView.el
 
                 
-                $(@el).masonry
+                @$el.masonry
                     itemSelector: '.recognition-view'
+
+
+                @$el.transition
+                    opacity: 1
+                , 1000

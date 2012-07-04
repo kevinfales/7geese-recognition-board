@@ -25,6 +25,10 @@ define [
             @commentsView = new CommentsView
                 model: @model
 
+        recognitionClicked: =>
+            window.open(@model.get('object').url)
+            console.log "Hello, World!"
+
         render: ->
             @$el.html template {}
 
@@ -35,3 +39,5 @@ define [
 
             @commentsView.render()
             @$filler.append @commentsView.el
+
+            @$el.find('.badge-view').click @recognitionClicked

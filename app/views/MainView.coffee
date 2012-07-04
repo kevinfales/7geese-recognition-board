@@ -16,19 +16,20 @@ define [
         initialize: ->
             # In the future, we might want to implement an auto-login system.
             @currentView = new LoginView
-            @currentView.on 'loginAccepted', @logInSubmitted
+            @currentView.on 'loginAccepted', @logInAccepted
+            @currentView.on 'loginFormClosed', @showRecognitions
             #@currentView = new BoardView
 
         render: ->
             @currentView.render()
             @$el.html @currentView.el
 
-        logInSubmitted: (data) =>
-            @currentView.remove()
+        logInAccepted: (data) =>
+            @currentView.transitionOut =>
+                @currentView.remove()
+                @currentView = new BoardView
+                    data: data.objects
 
-            @currentView = new BoardView
-                data: data.objects
+                @render()
 
-            @render()
-
-            @currentView.renderRecognitions()
+                @currentView.renderRecognitions()

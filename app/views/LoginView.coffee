@@ -3,6 +3,7 @@ define [
     'text!templates/login.html'
 
     'app/jquery/jquery.serializeobject.js'
+    'app/jquery/jquery.transit.min.js'
 
     'cs!app/statics'
 
@@ -29,6 +30,57 @@ define [
             @$el.html template {}
 
             @form = @$el.find 'form'
+            @pleaseWaitMessage = @$el.find '.please-wait-message'
+
+            @pleaseWaitMessage.css
+                y: '0px'
+                opacity: 0
+
+            @$el.css
+                x: '-100px'
+                opacity: 0
+
+            @$el.transition
+                x: '0px'
+                opacity: 1
+                delay: 200
+
+        transitionOut: (cb) ->
+            @$el.transition
+                y: '-100px'
+                opacity: 0
+            , ->
+                if cb?
+                    cb()
+
+        displayPleaseWait: ->
+            @form.transition
+                y: '-130px'
+                opacity: 0
+
+            @pleaseWaitMessage.transition
+                y: '-100px'
+                opacity: 1
+                delay: 500
+
+            return
+
+        displayForm: (message) ->
+            @form.transition
+                y: '0px'
+                opacity: 1
+
+            @pleaseWaitMessage.transition
+                y: '0px'
+                opacity: 0
+
+            if message?
+                $intro = @$el.find('.intro')
+
+                $intro.html message
+                $intro.addClass 'error'
+
+            return
 
         formSubmitted: (e) ->
             e.preventDefault()
@@ -39,8 +91,12 @@ define [
 
             deferred = $.getJSON(query);
 
+            @displayPleaseWait()
+
             deferred.success (data) =>
+                #setTimeout =>
                 @trigger 'loginAccepted', data
+                #, 3000
 
             deferred.error ->
-                console.log "Awe! D:"
+                @displayForm "An error occured"

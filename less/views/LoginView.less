@@ -2,7 +2,7 @@
 
 .login-view {
     width: 300px;
-    margin: 0 auto;
+    margin: 100px auto 0 auto;
 
     input[type="text"] {
         .box-sizing(border-box);
@@ -17,5 +17,20 @@
 
     .submit-button {
         text-align: right;
+    }
+
+    .intro {
+        color: rgba(0, 0, 0, 0.5);
+        text-align: center;
+        &.error {
+            color: rgba(255, 0, 0, 0.5);
+        }
+    }
+
+    .please-wait-message {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.25em;
+        color: rgba(0, 0, 0, 0.5);
     }
 }
