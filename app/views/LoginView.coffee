@@ -4,14 +4,22 @@ define [
 
     'js/jquery/jquery.serializeobject.js'
 
+    'cs!app/statics'
+
+    'jquery'
     'backbone'
     'underscore'
 ], (template) ->
 
     Backbone = require 'backbone'
     _ = require 'underscore'
+    $ = require 'jquery'
 
     template = _.template require 'text!templates/login.html'
+
+    statics = (require "cs!app/statics")()
+
+    console.log statics
 
     return class LoginView extends Backbone.View
         className: 'login-view'
@@ -27,4 +35,14 @@ define [
         formSubmitted: (e) ->
             e.preventDefault()
 
-            @trigger 'formSubmitted', @form.serializeObject(), @form
+            serializedForm = @form.serializeObject()
+
+            query = "#{statics.hostname}/api/v1/stream/?verb=badge_awarded&username=#{serializedForm.email}&api_key=#{serializedForm['api-token']}&format=jsonp&callback=?"
+
+            deferred = $.getJSON(query);
+
+            deferred.success (data) =>
+                @trigger 'loginAccepted', data
+
+            deferred.error ->
+                console.log "Awe! D:"
