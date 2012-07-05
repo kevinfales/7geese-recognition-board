@@ -42,3 +42,9 @@ Boom. The compiled version should be ready for you in the `dist` folder.
 ## Adding Dependencies
 
 To add depenendencies to the code just open up the `jam.json` file, and add your dependencies from there.
+
+## TODO
+
+* Move compiled CSS from css/bin to bin/css. Makes more sense, and we don't need to keep an unnecessary .gitkeep file.
+* Document the source code.
+* Fix all TODO's in code.
