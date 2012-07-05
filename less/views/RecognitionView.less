@@ -22,6 +22,7 @@
             border-radius: 6px;
             background-color: white;
             border: 1px solid #bad1e0;
+            .transition(all 300ms ease-in-out);
         } 
     }
 
@@ -45,14 +46,10 @@
     &.animate:hover {
         .transform(translate(0, -@animation_distance));
 
-        .inner {
-            background-color: lighten(@7g_border_color, 2%);
-        }
-
         .shadow-box {
             .transform(translate(0, 3));
             .transform(scaleX(0.95));
-            .box-shadow(0 @animation_distance - 1px @animation_distance * 0.25 rgba(0, 0, 0, 0.125));
+            .box-shadow(0 @animation_distance - 1px @animation_distance * 2 rgba(0, 0, 0, 0.1));
             z-index: -101;
         }
     }
