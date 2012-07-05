@@ -16,7 +16,10 @@ define [
     return class CommentsView extends Backbone.View
         render: ->
             data = @model.toJSON()
-            @$el.html template
-                comments: data.comments
-                $: $
-                moment: moment
+            if data.comments.length > 0
+                @$el.html template
+                    comments: data.comments
+                    $: $
+                    moment: moment
+            else
+                @$el.hide()
