@@ -15,10 +15,28 @@ define [
     return class BoardView extends Backbone.View
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
+            @recognitionsCollection.on "add", @recognitionAdded
 
             @recognitionsCollection.add @options.data
 
         render: ->
+
+        recognitionAdded: (model) =>
+            console.log "Called"
+
+            profileImage = new Image
+            profileImage.src = model.get('target').image_medium.url
+
+            badgeImage = new Image
+            badgeImage.src = model.get('object').image_medium.url
+
+            max = 2
+            comments = model.get('comments')
+
+            comments =  if (comments.length > max) then comments.slice(comments.length - max, comments.length) else comments
+            $.each comments, (index, value) =>
+                profilePic = new Image
+                profilePic.src = value.creator.profile_img
 
         renderRecognitions: ->
             ###
