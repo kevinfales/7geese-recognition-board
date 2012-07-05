@@ -13,6 +13,9 @@ define [
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
 
     # TODO: Use the static variable to determine how many comments.
+    # TODO: BoardView should have not much to do with comments.
+    # TODO: Neither BoardView nor RecognitionCollection should have anything to
+    #       do with preloading images.
 
     return class BoardView extends Backbone.View
         initialize: ->
@@ -22,6 +25,7 @@ define [
             @recognitionsCollection.add @options.data
 
         render: ->
+            # TODO: Find a way to remove this.
 
         recognitionAdded: (model) =>
             profileImage = new Image
