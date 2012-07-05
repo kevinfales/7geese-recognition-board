@@ -3,6 +3,7 @@ dist:
 	@cp index.html dist/index.html
 	@cp -r js dist/js
 	@cp -r css dist/css
+	@rm dist/css/.gitkeep
 
 	@mkdir dist/jam
 	@cp jam/require.js dist/jam/require.js
