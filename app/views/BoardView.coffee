@@ -12,6 +12,8 @@ define [
     RecognitionView = require 'cs!app/views/RecognitionView'
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
 
+    # TODO: Use the static variable to determine how many comments.
+
     return class BoardView extends Backbone.View
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
@@ -22,8 +24,6 @@ define [
         render: ->
 
         recognitionAdded: (model) =>
-            console.log "Called"
-
             profileImage = new Image
             profileImage.src = model.get('target').image_medium.url
 
