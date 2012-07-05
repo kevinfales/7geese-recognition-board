@@ -45,3 +45,5 @@ define [
                 @$el.transition
                     opacity: 1
                 , 1000
+                , =>
+                    @$el.find('.recognition-view').addClass('animate');
