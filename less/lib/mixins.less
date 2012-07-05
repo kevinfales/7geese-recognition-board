@@ -9,6 +9,62 @@
     transition: @options;
 }
 
+.transition-property(@options) {
+    -webkit-transition-property: @options;
+    -moz-transition-property: @options;
+    -ms-transition-property: @options;
+    -o-transition-property: @options;
+    transition-property: @options;
+}
+
+.transition-duration(@options) {
+    -webkit-transition-duration: @options;
+    -moz-transition-duration: @options;
+    -ms-transition-duration: @options;
+    -o-transition-duration: @options;
+    transition-duration: @options;
+}
+
+.transition-property-2(@options1, @options2) {
+    -webkit-transition-property: @options1, @options2;
+    -moz-transition-property: @options1, @options2;
+    -ms-transition-property: @options1, @options2;
+    -o-transition-property: @options1, @options2;
+    transition-property: @options1, @options2;
+}
+
+.transition-duration-2(@options1, @options2) {
+    -webkit-transition-duration: @options1, @options2;
+    -moz-transition-duration: @options1, @options2;
+    -ms-transition-duration: @options1, @options2;
+    -o-transition-duration: @options1, @options2;
+    transition-duration: @options1, @options2;
+}
+
+.transition-property-4(@options1, @options2, @options3, @options4) {
+    -webkit-transition-property: @options1, @options2, @options3, @options4;
+    -moz-transition-property: @options1, @options2, @options3, @options4;
+    -ms-transition-property: @options1, @options2, @options3, @options4;
+    -o-transition-property: @options1, @options2, @options3, @options4;
+    transition-property: @options1, @options2, @options3, @options4;
+}
+
+.transition-duration-4(@options1, @options2, @options3, @options4) {
+    -webkit-transition-duration: @options1, @options2, @options3, @options4;
+    -moz-transition-duration: @options1, @options2, @options3, @options4;
+    -ms-transition-duration: @options1, @options2, @options3, @options4;
+    -o-transition-duration: @options1, @options2, @options3, @options4;
+    transition-duration: @options1, @options2, @options3, @options4;
+}
+
+.transform(@options) {
+    -webkit-transform: @options;
+    -moz-transform: @options;
+    -ms-transform: @options;
+    -o-transform: @options;
+    transform: @options;
+}
+
 .box-shadow(@options) {
     -webkit-box-shadow: @options;
     -moz-box-shadow: @options;

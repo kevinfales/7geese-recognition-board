@@ -2,7 +2,7 @@ define [], ->
 
     return ->
         statics =
-            hostname: 'http://192.168.10.129:8000'
+            hostname: 'http://192.168.0.13:8000'
 
         retVal = {}
 

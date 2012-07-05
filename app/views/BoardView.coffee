@@ -47,7 +47,7 @@ define [
             $ =>
                 @$el.css
                     opacity: 0
-                    scale: 0.875
+                    scale: 0.925
 
                 @recognitionsCollection.forEach (model) =>
                     recognitionView = new RecognitionView
