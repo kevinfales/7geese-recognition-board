@@ -4,7 +4,7 @@ define('lessc', [], function () {
     var buildMap = {},
         // TODO: Find a better way to determine if the current environment is
         //       Node.js or not.
-        isNodejs = typeof module != 'undefined';
+        isNodejs = typeof exports != 'undefined';
 
     /**
      * Convenience function for compiling LESS code.

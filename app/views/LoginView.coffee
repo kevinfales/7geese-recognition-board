@@ -106,5 +106,5 @@ define [
                     unless canceled
                         @trigger 'loginAccepted', data
 
-                deferred.error ->
+                deferred.error =>
                     @displayForm "An error occured"
