@@ -47,6 +47,7 @@ define [
             $ =>
                 @$el.css
                     opacity: 0
+                    scale: 0.875
 
                 @recognitionsCollection.forEach (model) =>
                     recognitionView = new RecognitionView
@@ -62,6 +63,7 @@ define [
 
                 @$el.transition
                     opacity: 1
-                , 1000
+                    scale: 1
+                , 500
                 , =>
                     @$el.find('.recognition-view').addClass('animate');

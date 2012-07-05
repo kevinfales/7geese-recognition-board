@@ -93,10 +93,18 @@ define [
 
             @displayPleaseWait()
 
-            deferred.success (data) =>
-                #setTimeout =>
-                @trigger 'loginAccepted', data
-                #, 3000
+            do =>
+                canceled = false
 
-            deferred.error ->
-                @displayForm "An error occured"
+                setTimeout =>
+                    canceled = true
+
+                    @displayForm "Timed Out"
+                , 10000
+
+                deferred.success (data) =>
+                    unless canceled
+                        @trigger 'loginAccepted', data
+
+                deferred.error ->
+                    @displayForm "An error occured"
