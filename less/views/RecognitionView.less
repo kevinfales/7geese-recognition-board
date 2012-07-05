@@ -45,10 +45,14 @@
     &.animate:hover {
         .transform(translate(0, -@animation_distance));
 
+        .inner {
+            background-color: lighten(@7g_border_color, 2%);
+        }
+
         .shadow-box {
             .transform(translate(0, 3));
             .transform(scaleX(0.95));
-            .box-shadow(0 @animation_distance @animation_distance * 0.25 rgba(0, 0, 0, 0.25));
+            .box-shadow(0 @animation_distance @animation_distance * 0.25 rgba(0, 0, 0, 0.125));
             z-index: -101;
         }
     }
