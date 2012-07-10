@@ -6,6 +6,7 @@ define [
     'app/jquery/jquery.transit.min.js'
 
     'cs!app/statics'
+    'cs!app/wrappers/Remote'
 
     'jquery'
     'backbone'
@@ -18,7 +19,9 @@ define [
 
     template = _.template require 'text!templates/login.html'
 
-    statics = (require "cs!app/statics")()
+    statics = require "cs!app/statics"
+
+    Remote = require 'cs!app/wrappers/Remote'
 
     return class LoginView extends Backbone.View
         className: 'login-view'
@@ -87,15 +90,16 @@ define [
 
             serializedForm = @form.serializeObject()
 
-            query = "#{statics.hostname}/api/v1/stream/?verb=badge_awarded&username=#{serializedForm.email}&api_key=#{serializedForm['api-token']}&format=jsonp&callback=?"
+            remote = new Remote
 
-            deferred = $.getJSON(query);
+            deferred = remote.getJSON serializedForm.email, serializedForm['api-token']
 
             @displayPleaseWait()
 
             do =>
                 canceled = false
 
+                # TODO: make it a bit more user-friendly.
                 setTimeout =>
                     canceled = true
 

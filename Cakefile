@@ -79,8 +79,8 @@ cleanBuild = (cb) ->
     ]
 
 buildStaticLess = (cb) ->
-    mkdirp "#{__dirname}/css/bin", "0777", (err, made) ->
-        lessc = spawnChild 'lessc', [ "#{__dirname}/less/static/style.less", "#{__dirname}/css/bin/style.css", '--yui-compress' ]
+    mkdirp "#{__dirname}/bin/css", "0777", (err, made) ->
+        lessc = spawnChild 'lessc', [ "#{__dirname}/less/static/style.less", "#{__dirname}/bin/css/style.css", '--yui-compress' ]
 
         lessc.on 'exit', ->
             console.log "Less files built."
@@ -135,21 +135,6 @@ doBuild = (cb) ->
                 cb()
     ]
 
-###
-task 'build', 'Build all script files, and compile the static LESS.', ->
-    doBuild()
-###
-
-###
-task 'build:less', 'Build the less files.', ->
-    buildLessFiles()
-###
-
-###
-task 'build:static-less', 'Bulid less files for the static site.', ->
-    buildStaticLess()
-###
-
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
         simpleServer = spawnChild 'simple-server'
@@ -184,11 +169,6 @@ task 'clean:all', 'Clear out all the unnecessary stuff, inscluding the node_modu
             rm = spawnChild 'rm', ['-rf', 'node_modules']
             rm.on 'exit', ->
     ]
-
-###
-task 'watch:less', 'Watch for changes in static less files.', ->
-    watchLess()
-###
 
 task 'run', 'Run a server.', ->
     async.waterfall [

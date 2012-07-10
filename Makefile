@@ -2,8 +2,7 @@ dist:
 	@mkdir dist
 	@cp index.html dist/index.html
 	@cp -r js dist/js
-	@cp -r css dist/css
-	@rm dist/css/.gitkeep
+	@cp -r bin dist/bin
 
 	@mkdir dist/jam
 	@cp jam/require.js dist/jam/require.js
@@ -12,7 +11,7 @@ dist:
 
 clean:
 	@rm -rf jam
-	@rm -rf css/bin
+	@rm -rf bin
 	@rm -rf dist
 	
 	@echo "The jam, css/bin, and dist folders have been removed."

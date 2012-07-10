@@ -1,11 +1,5 @@
 <div class="comments">
-  <%
-  var max = 2;
-  $.each(
-    comments.length > max ?
-      comments.slice(comments.length - max, comments.length) :
-      comments,
-  function (index, value) { %>
+  <% $.each(comments, function (index, value) { %>
     <div class="comment">
 
       <div class="profile-pic">

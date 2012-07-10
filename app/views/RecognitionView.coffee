@@ -27,9 +27,14 @@ define [
 
         recognitionClicked: =>
             window.open(@model.get('object').url)
-            console.log "Hello, World!"
 
         render: ->
+            profileImage = new Image
+            profileImage.src = @model.get('target').image_medium.url
+
+            badgeImage = new Image
+            badgeImage.src = @model.get('object').image_medium.url
+
             @$el.html template {}
 
             @$filler = @$el.find('.filler')

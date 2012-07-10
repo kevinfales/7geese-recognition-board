@@ -17,14 +17,27 @@ define [
             # In the future, we might want to implement an auto-login system.
             @currentView = new LoginView
             @currentView.on 'loginAccepted', @logInAccepted
-            @currentView.on 'loginFormClosed', @showRecognitions
-            #@currentView = new BoardView
+            
+            return
 
         render: ->
+            ###
+            This will render the MainView.
+            ###
+
             @currentView.render()
             @$el.html @currentView.el
 
+            return
+
         logInAccepted: (data) =>
+            ###
+            Event handler for when the user logged in.
+
+            @param object data: is a list of all recognitions that was given
+                when the server successfully authenticated.
+            ###
+
             @currentView.transitionOut =>
                 @currentView.remove()
                 @currentView = new BoardView
@@ -33,3 +46,5 @@ define [
                 @render()
 
                 @currentView.renderRecognitions()
+
+            return

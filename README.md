@@ -45,7 +45,6 @@ To add depenendencies to the code just open up the `jam.json` file, and add your
 
 ## TODO
 
-* Move compiled CSS from css/bin to bin/css. Makes more sense, and we don't need to keep an unnecessary .gitkeep file.
 * Document the source code.
 * Set up a "fake" server that just loads up stub data.
-* Fix all TODO's in code.
+* Set up a mock server directly inside the client itself.
