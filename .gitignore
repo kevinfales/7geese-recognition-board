@@ -1,5 +1,6 @@
 jam
 node_modules
 .compiled
-css/bin
+bin
 dist
+local_settings.json
