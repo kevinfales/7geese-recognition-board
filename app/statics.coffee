@@ -1,6 +1,6 @@
 define [], ->
 
     return {
-        hostname: 'http://192.168.10.129:8000'
+        hostname: 'http://localhost:4000'
         maxComments: 2
     }

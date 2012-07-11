@@ -172,7 +172,6 @@ task 'clean:all', 'Clear out all the unnecessary stuff, inscluding the node_modu
 
 task 'run', 'Run a server.', ->
     async.waterfall [
-
         (callback) ->
             jam = spawnChild 'jam', [ 'install', 'jam.json' ]
             jam.on 'exit', ->
