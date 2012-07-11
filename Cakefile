@@ -135,6 +135,32 @@ doBuild = (cb) ->
                 cb()
     ]
 
+writeDevelopmentSettings = (cb) ->
+    settingsjsDir = "#{__dirname}/app/bin"
+
+    mkdirp settingsjsDir, "0777", (err, made) ->
+
+        productionSettingsFilename = "#{__dirname}/settings/production.json"
+        localSettingsFilename      = "#{__dirname}/local_settings.json"
+
+        productionSettings = JSON.parse fs.readFileSync productionSettingsFilename, 'utf8'
+
+        # Check if the local setting file exists.
+        fs.lstat localSettingsFilename, (err, stats) ->
+            if not err and stats.isFile()
+                localSettings = JSON.parse fs.readFileSync localSettingsFilename, 'utf8'
+
+                # And if so, override settings outlined in local
+                # settings.
+                for k, v of localSettings
+                    productionSettings[k] = v
+
+            outputJs = "define([], function () { return #{JSON.stringify productionSettings}; });"
+
+            fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, 'utf8'
+
+            cb()
+
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
         simpleServer = spawnChild 'simple-server'
@@ -142,7 +168,6 @@ task 'build-run', 'Build all script files, compile the static LESS, and run the 
 task 'dist', 'Prepare the project for distribution.', ->
     doBuild ->
         make = spawnChild 'make', ['dist']
-
 
 task 'deps:install', 'Install all dependencies for the client-side.', ->
     async.waterfall [
@@ -175,6 +200,10 @@ task 'run', 'Run a server.', ->
         (callback) ->
             jam = spawnChild 'jam', [ 'install', 'jam.json' ]
             jam.on 'exit', ->
+                callback null
+
+        (callback) ->
+            writeDevelopmentSettings ->
                 callback null
 
         (callback) ->

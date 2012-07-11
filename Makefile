@@ -13,5 +13,6 @@ clean:
 	@rm -rf jam
 	@rm -rf bin
 	@rm -rf dist
+	@rm -rf app/bin
 	
 	@echo "The jam, css/bin, and dist folders have been removed."
