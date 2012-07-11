@@ -46,4 +46,4 @@ To add depenendencies to the code just open up the `jam.json` file, and add your
 ## TODO
 
 * Document the source code.
-* Set up a mock server directly inside the client itself.
+* Get the settings system to actually work.
