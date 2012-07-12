@@ -1,10 +1,10 @@
 define [
-    'cs!app/statics'
+    'app/bin/settings'
 ], ->
-    statics = require 'cs!app/statics'
+    settings = require 'app/bin/settings'
 
     return class Remote
         getJSON: (username, apiToken) ->
-            query = "#{statics.hostname}/api/v1/stream/?verb=badge_awarded&username=#{username}&api_key=#{apiToken}&format=jsonp&callback=?"
+            query = "#{settings.hostname}/api/v1/stream/?verb=badge_awarded&username=#{username}&api_key=#{apiToken}&format=jsonp&callback=?"
 
             return $.getJSON query

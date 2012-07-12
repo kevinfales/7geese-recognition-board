@@ -106,6 +106,20 @@ watchLess = ->
         createMonitor "#{__dirname}/less/static"
         createMonitor "#{__dirname}/less/lib"
 
+writeProductionSettings = (cb) ->
+    settingsjsDir = "#{__dirname}/app/bin"
+
+    mkdirp settingsjsDir, "0777", (err, made) ->
+        productionSettingsFilename = "#{__dirname}/settings/production.json"
+
+        productionSettings = JSON.parse fs.readFileSync productionSettingsFilename, 'utf8'
+
+        outputJs = "define([], function () { return #{JSON.stringify productionSettings}; });"
+
+        fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, "utf8"
+
+        cb()
+
 doBuild = (cb) ->
     async.waterfall [
         (callback) ->
@@ -123,6 +137,10 @@ doBuild = (cb) ->
         (callback) ->
             jam = spawnChild 'jam', [ 'install', 'jam.json' ]
             jam.on 'exit', ->
+                callback null
+
+        (callback) ->
+            writeProductionSettings ->
                 callback null
 
         (callback) ->
@@ -160,6 +178,10 @@ writeDevelopmentSettings = (cb) ->
             fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, 'utf8'
 
             cb()
+
+runDevelopment = ->
+    sampleServer = spawnChild "coffee", ["#{__dirname}/sample-server/server.coffee"]
+    simpleServer = spawnChild 'simple-server'
 
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
@@ -208,5 +230,5 @@ task 'run', 'Run a server.', ->
 
         (callback) ->
             watchLess()
-            simpleServer = spawnChild 'simple-server'
+            runDevelopment()
     ]
