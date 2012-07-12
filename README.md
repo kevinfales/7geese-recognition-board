@@ -21,13 +21,11 @@ We're almost there.
 
 Done.
 
-Now, since a lot of the stuff require AJAX calls, be sure you access the index.html file from a server, rather than opening it directly on the browser.
+## Development
 
-The good news, though, is that while developing, you can open up a local server on the project directory by running the following command
+Since a lot of the source code uses preprocessors, then it will also require automatically updating them when changs are made. Don't worry, only one command will solve all your problem.
 
     $ cake run
-
-The significance of this is that you also watch for changes in the CSS code for the "static" part of the system, rather than the dynamic parts--such as the recognitions loader.
 
 ## Deploying
 

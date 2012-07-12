@@ -203,7 +203,7 @@ runDevelopment = () ->
 
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
-        runDevelopment()
+        simpleServer = spawnChild 'simple-server'
 
 task 'dist', 'Prepare the project for distribution.', ->
     doBuild ->
