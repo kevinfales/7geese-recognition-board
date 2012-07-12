@@ -5,6 +5,7 @@ fs            = require 'fs'
 path          = require 'path'
 mkdirp        = require 'mkdirp'
 watch         = require 'watch'
+beautify      = require './cake-modules/beautify.js'
 
 outputStdout = (data) ->
     console.log data.toString('utf8').trim()
@@ -158,10 +159,17 @@ writeDevelopmentSettings = (cb) ->
 
     mkdirp settingsjsDir, "0777", (err, made) ->
 
-        productionSettingsFilename = "#{__dirname}/settings/production.json"
-        localSettingsFilename      = "#{__dirname}/local_settings.json"
+        productionSettingsFilename  = "#{__dirname}/settings/production.json"
+        developmentSettingsfilename = "#{__dirname}/settings/development.json"
+        localSettingsFilename       = "#{__dirname}/local_settings.json"
 
         productionSettings = JSON.parse fs.readFileSync productionSettingsFilename, 'utf8'
+        developmentSettings = JSON.parse fs.readFileSync developmentSettingsfilename, 'utf8'
+
+        # Override all settings from production, since we will not need them
+        # during development.
+        for k, v of developmentSettings
+            productionSettings[k] = v
 
         # Check if the local setting file exists.
         fs.lstat localSettingsFilename, (err, stats) ->
@@ -173,10 +181,10 @@ writeDevelopmentSettings = (cb) ->
                 for k, v of localSettings
                     productionSettings[k] = v
 
-            outputJs = "define([], function () { return #{JSON.stringify productionSettings}; });"
+            outputJs = "define([],function (){return #{JSON.stringify productionSettings};});"
+            outputJs = beautify.js_beautify outputJs
 
             fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, 'utf8'
-
             cb()
 
 runDevelopment = ->
