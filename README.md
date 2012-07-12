@@ -46,4 +46,3 @@ To add depenendencies to the code just open up the `jam.json` file, and add your
 ## TODO
 
 * Document the source code.
-* Have a separate settings file for the development version.

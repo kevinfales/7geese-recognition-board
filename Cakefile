@@ -187,13 +187,23 @@ writeDevelopmentSettings = (cb) ->
             fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, 'utf8'
             cb()
 
-runDevelopment = ->
-    sampleServer = spawnChild "coffee", ["#{__dirname}/sample-server/server.coffee"]
-    simpleServer = spawnChild 'simple-server'
+runDevelopment = () ->
+    callbacks = []
+
+    fs.readFile "#{__dirname}/local_settings.json", 'utf8', (err, localSettings) ->
+        unless err?
+            localSettings = JSON.parse localSettings
+        else
+            localSettings = {}
+
+        unless localSettings.no_remote
+            sampleServer = spawnChild "coffee", ["#{__dirname}/sample-server/server.coffee"]
+
+        simpleServer = spawnChild 'simple-server'
 
 task 'build-run', 'Build all script files, compile the static LESS, and run the server.', ->
     doBuild ->
-        simpleServer = spawnChild 'simple-server'
+        runDevelopment()
 
 task 'dist', 'Prepare the project for distribution.', ->
     doBuild ->
