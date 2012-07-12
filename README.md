@@ -33,9 +33,13 @@ When you call that command, look closely at the output window, since it will be 
 Of course, would also want to test against on another server, such as the main remote one. In this case, you can set up a `local_settings.json` file. It has the properties outlined in the sample JSON data, below.
 
     {
-        "hostname": "http://7geese.com/",
-        "no_remote": true
+        "hostname": "http://7geese.com",
+        "no_fake_server": true
     }
+
+Just a quick note: when setting the `hostname` property, be sure to leave off the trailing forward slash (`/`), just like in the example.
+
+And also, the `no_fake_server` property is optional, but it's just something that prevents the fake server to start up when the property is set to `true`.
 
 ## Deploying
 

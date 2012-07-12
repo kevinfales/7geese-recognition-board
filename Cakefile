@@ -196,7 +196,7 @@ runDevelopment = () ->
         else
             localSettings = {}
 
-        unless localSettings.no_remote
+        unless localSettings.no_fake_server
             sampleServer = spawnChild "coffee", ["#{__dirname}/sample-server/server.coffee"]
 
         simpleServer = spawnChild 'simple-server'
