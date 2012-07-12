@@ -26,6 +26,17 @@ Since a lot of the source code uses preprocessors, then it will also require aut
 
     $ cake run
 
+When you call that command, look closely at the output window, since it will be there that you will have to get the username and API Token in order to authenticate to the fake server that fires up.
+
+### Testing on Another Server
+
+Of course, would also want to test against on another server, such as the main remote one. In this case, you can set up a `local_settings.json` file. It has the properties outlined in the sample JSON data, below.
+
+    {
+        "hostname": "http://7geese.com/",
+        "no_remote": true
+    }
+
 ## Deploying
 
 Since this entire system is static, you don't need any special servers. However, you will still have to do some trickery before sending it off to the end-user. But it's nothing too complex. It's just a single command and you should be ready to go.
@@ -36,7 +47,7 @@ And here's that magical command.
 
 Boom. The compiled version should be ready for you in the `dist` folder.
 
-### But what about viewing the built version without even opening the dist folder?
+### But What About Viewing the Built Version Without Even Opening the Dist Folder?
 
 Don't worry, there is a command for that as well. And here it is.
 
