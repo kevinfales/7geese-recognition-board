@@ -15,9 +15,10 @@ define [
     return class BoardView extends Backbone.View
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
-            @recognitionsCollection.add @options.data
+            @recognitionsCollection.fetch().done =>
+                @render()
 
-        renderRecognitions: ->
+        render: =>
             ###
             This will render all the recognitions. The code here is separate
             from the main one since logically 

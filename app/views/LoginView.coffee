@@ -92,7 +92,9 @@ define [
 
             remote = new Remote
 
-            deferred = remote.getJSON serializedForm.email, serializedForm['api-token']
+            deferred = remote.checkAuth serializedForm.email, serializedForm['api-token']
+            credentials = username: serializedForm.email,
+            api_key: serializedForm['api-token']
 
             @displayPleaseWait()
 
@@ -108,7 +110,7 @@ define [
 
                 deferred.success (data) =>
                     unless canceled
-                        @trigger 'loginAccepted', data
+                        @trigger 'loginAccepted', credentials
 
                 deferred.error =>
                     @displayForm "An error occured"

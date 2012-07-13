@@ -1,6 +1,7 @@
 requirejs.config({
     shim: {
-        'app/jquery/jquery.masonry.min.js': ['jquery']
+        'app/jquery/jquery.masonry.min.js': ['jquery'],
+        'app/lib/backbone-tastypie.js': ['backbone']
     }
 });
 
