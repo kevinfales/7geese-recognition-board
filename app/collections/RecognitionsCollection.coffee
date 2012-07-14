@@ -21,8 +21,13 @@ define [
             dataType: 'jsonp'
             data:
                 verb: 'badge_awarded'
-        url: "#{settings.hostname}/api/v1/stream/"
         fetch: (options={}) =>
-            options = $.extend true, @defaultGetParams, options
-            debugger
-            super options
+            mergedOptions = _.clone @defaultGetParams
+            mergedOptions = $.extend true, mergedOptions, options
+            super mergedOptions
+        url: =>
+            url = "#{settings.hostname}/api/v1/stream/"
+            if Backbone.Tastypie.apiKey and Backbone.Tastypie.apiKey.username.length and Backbone.Tastypie.apiKey.key.length
+                creds = {username: Backbone.Tastypie.apiKey.username, api_key: Backbone.Tastypie.apiKey.key}
+                url = "#{url}?#{$.param creds}"
+            url

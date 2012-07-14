@@ -91,7 +91,6 @@ define [
             serializedForm = @form.serializeObject()
 
             remote = new Remote
-
             deferred = remote.checkAuth serializedForm.email, serializedForm['api-token']
             credentials = username: serializedForm.email,
             api_key: serializedForm['api-token']
@@ -108,7 +107,7 @@ define [
                     @displayForm "Timed Out"
                 , 10000
 
-                deferred.success (data) =>
+                deferred.done (data) =>
                     unless canceled
                         @trigger 'loginAccepted', credentials
 
