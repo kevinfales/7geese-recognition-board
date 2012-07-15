@@ -74,4 +74,5 @@ define [
 
             recognitionView.render()
             if prepend then @$el.prepend(recognitionView.el) else @$el.append(recognitionView.el)
+            recognitionView.$el.addClass 'animate'
             

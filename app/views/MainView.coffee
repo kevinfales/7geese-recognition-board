@@ -30,11 +30,10 @@ define [
 
             promise = @remote.checkAuth username, api_key
 
-            promise.success (data) =>
+            promise.done (data) =>
                 Backbone.Tastypie.apiKey.username = username
                 Backbone.Tastypie.apiKey.key = api_key
                 @renderRecognitionBoard()
-
             .fail =>
                 # In the future, we might want to implement an auto-login system.
                 @currentView = new LoginView
@@ -49,8 +48,6 @@ define [
             This will render the MainView.
             ###
             @$el.html @currentView.el if @currentView?
-
-            return
 
         _parseGetParams: ->
             query = {}

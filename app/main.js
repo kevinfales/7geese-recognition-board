@@ -1,6 +1,9 @@
 requirejs.config({
     shim: {
         'app/jquery/jquery.masonry.min.js': ['jquery'],
+        'app/jquery/jquery.transit.min.js': ['jquery'],
+        'app/jquery/jquery.serializeobject.js': ['jquery'],
+        'app/jquery/jquery.jsonp.js': ['jquery'],
         'app/lib/backbone-tastypie.js': ['backbone']
     }
 });
