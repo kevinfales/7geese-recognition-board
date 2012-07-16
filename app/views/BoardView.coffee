@@ -2,6 +2,8 @@ define [
     'backbone'
     'jquery'
 
+    'lessc!less/views/BoardView.less'
+
     'app/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
@@ -13,9 +15,25 @@ define [
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
 
     return class BoardView extends Backbone.View
+        className: 'board-view'
+
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
             @recognitionsCollection.add @options.data
+
+        centerBoard: ->
+            $window = $ window
+
+            recognitionViewWidth = @$el.find(".recognition-view").width()
+            windowWidth          = $window.width()
+            recognitionListWidth = ((windowWidth / (recognitionViewWidth + 10))|0) * recognitionViewWidth
+
+            @$el.css "width": recognitionListWidth
+
+        render: ->
+            $(window).resize =>
+                @centerBoard()
+
 
         renderRecognitions: ->
             ###
@@ -44,3 +62,4 @@ define [
                 , 500
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
+                    @centerBoard()
