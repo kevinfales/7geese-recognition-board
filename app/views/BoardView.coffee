@@ -24,7 +24,10 @@ define [
                 @recognitionsCollection.bind "add", @_prependNewRecognition
             setInterval =>
                 @updateBoard()
-            , 30000           
+            , 30000
+
+            $(window).resize =>
+                centerBoard()          
 
         centerBoard: ->
             $window = $ window
@@ -48,20 +51,13 @@ define [
 
                 if collection.length
                     @$el.masonry 'reload'
-            newRecognitions.fetch { 
-                success: successCallback,
-                data: {
-                    poll: true,
+            newRecognitions.fetch
+                success: successCallback
+                data:
+                    poll: true
                     offset: @recognitionsCollection.meta.offset
-                }
-            }
         
         render: =>
-            ###
-            This will render all the recognitions. The code here is separate
-            from the main one since logically 
-            ###
-
             $ =>
                 @$el.css
                     opacity: 0
@@ -79,7 +75,9 @@ define [
                 , 500
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
-                    
+
+                @centerBoard()
+
         _prependNewRecognition: (model) =>
             @_addRecognition model, true
             @$el.masonry 'reload'
