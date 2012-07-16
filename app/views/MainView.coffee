@@ -2,6 +2,9 @@ define [
     'underscore'
     'backbone'
 
+    'cs!app/wrappers/Remote'
+    'app/lib/backbone-tastypie'
+
     'cs!app/views/BoardView'
     'cs!app/views/LoginView'
 ], (template) ->
@@ -12,11 +15,31 @@ define [
     BoardView = require 'cs!app/views/BoardView'
     LoginView = require 'cs!app/views/LoginView'
 
+    Remote = require 'cs!app/wrappers/Remote'
+
     return class MainView extends Backbone.View
+        remote: new Remote
         initialize: ->
-            # In the future, we might want to implement an auto-login system.
-            @currentView = new LoginView
-            @currentView.on 'loginAccepted', @logInAccepted
+            Q = @_parseGetParams()
+            if 'username' not of Q or 'api_key' not of Q
+                username = ""
+                api_key = ""
+            else
+                username = Q.username
+                api_key = Q.api_key
+
+            promise = @remote.checkAuth username, api_key
+
+            promise.done (data) =>
+                Backbone.Tastypie.apiKey.username = username
+                Backbone.Tastypie.apiKey.key = api_key
+                @renderRecognitionBoard()
+            .fail =>
+                # In the future, we might want to implement an auto-login system.
+                @currentView = new LoginView
+                @currentView.render()
+                @render()
+                @currentView.on 'loginAccepted', @logInAccepted
             
             return
 
@@ -24,11 +47,16 @@ define [
             ###
             This will render the MainView.
             ###
+            @$el.html @currentView.el if @currentView?
 
-            @currentView.render()
-            @$el.html @currentView.el
-
-            return
+        _parseGetParams: ->
+            query = {}
+            search = location.search.substring(1).split("&")
+            i = search.length;
+            while (i--)
+                pair = search[i].split '='
+                query[pair[0]] = decodeURIComponent(pair[1])
+            query
 
         logInAccepted: (data) =>
             ###
@@ -39,12 +67,14 @@ define [
             ###
 
             @currentView.transitionOut =>
-                @currentView.remove()
-                @currentView = new BoardView
-                    data: data.objects
-
-                @render()
-
-                @currentView.renderRecognitions()
+                Backbone.Tastypie.apiKey.username = data.username
+                Backbone.Tastypie.apiKey.key = data.api_key
+                @renderRecognitionBoard()
+                
 
             return
+
+        renderRecognitionBoard: =>
+            @currentView?.remove()
+            @currentView = new BoardView
+            @render()

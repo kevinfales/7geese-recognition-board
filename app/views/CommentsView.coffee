@@ -16,7 +16,9 @@ define [
     statics = require 'cs!app/statics'
 
     return class CommentsView extends Backbone.View
-        render: ->
+        initialize: ->
+            @model.bind "change", @render
+        render: =>
             data = @model.toJSON()
 
             comments = null

@@ -16,10 +16,11 @@ define [
         className: 'badge-view'
 
         initialize: ->
-            if !@model?
+            if not @model?
                 throw "No model has been defined."
+            @model.bind "change", @render
 
-        render: ->
+        render: =>
             data = @model.toJSON()
             html =  template data
             @$el.html html

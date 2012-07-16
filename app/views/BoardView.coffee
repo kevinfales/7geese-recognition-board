@@ -19,7 +19,15 @@ define [
 
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
-            @recognitionsCollection.add @options.data
+            @recognitionsCollection.fetch success: =>
+                @render()
+                @recognitionsCollection.bind "add", @_prependNewRecognition
+            setInterval =>
+                @updateBoard()
+            , 30000
+
+            $(window).resize =>
+                centerBoard()          
 
         centerBoard: ->
             $window = $ window
@@ -30,28 +38,33 @@ define [
 
             @$el.css "width": recognitionListWidth
 
-        render: ->
-            $(window).resize =>
-                @centerBoard()
+        updateBoard: =>
+            newRecognitions = new RecognitionsCollection
+            successCallback = (collection, response) =>
+                @recognitionsCollection.meta.offset = collection.meta.offset
+                collection.each (model) =>
+                    existingModel = @recognitionsCollection.get model.get("id")
+                    if existingModel?
+                        existingModel.set model.toJSON()
+                    else
+                        @recognitionsCollection.unshift model
 
-
-        renderRecognitions: ->
-            ###
-            This will render all the recognitions. The code here is separate
-            from the main one since logically 
-            ###
-
+                if collection.length
+                    @$el.masonry 'reload'
+            newRecognitions.fetch
+                success: successCallback
+                data:
+                    poll: true
+                    offset: @recognitionsCollection.meta.offset
+        
+        render: =>
             $ =>
                 @$el.css
                     opacity: 0
                     scale: 0.925
 
                 @recognitionsCollection.forEach (model) =>
-                    recognitionView = new RecognitionView
-                        model: model
-
-                    recognitionView.render()
-                    @$el.append recognitionView.el
+                    @_addRecognition model
 
                 @$el.masonry
                     itemSelector: '.recognition-view'
@@ -62,4 +75,16 @@ define [
                 , 500
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
-                    @centerBoard()
+
+                @centerBoard()
+
+        _prependNewRecognition: (model) =>
+            @_addRecognition model, true
+            @$el.masonry 'reload'
+        _addRecognition: (model, prepend=false) =>
+            recognitionView = new RecognitionView
+                model: model
+
+            recognitionView.render()
+            if prepend then @$el.prepend(recognitionView.el) else @$el.append(recognitionView.el)
+            recognitionView.$el.addClass 'animate'
