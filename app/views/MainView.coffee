@@ -19,6 +19,7 @@ define [
 
     return class MainView extends Backbone.View
         remote: new Remote
+
         initialize: ->
             Q = @_parseGetParams()
             if 'username' not of Q or 'api_key' not of Q
@@ -34,6 +35,7 @@ define [
                 Backbone.Tastypie.apiKey.username = username
                 Backbone.Tastypie.apiKey.key = api_key
                 @renderRecognitionBoard()
+
             .fail =>
                 # In the future, we might want to implement an auto-login system.
                 @currentView = new LoginView

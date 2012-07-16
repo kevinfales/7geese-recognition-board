@@ -22,12 +22,13 @@ define [
             @recognitionsCollection.fetch success: =>
                 @render()
                 @recognitionsCollection.bind "add", @_prependNewRecognition
+
             setInterval =>
                 @updateBoard()
             , 30000
 
             $(window).resize =>
-                centerBoard()          
+                @centerBoard()
 
         centerBoard: ->
             $window = $ window
@@ -35,6 +36,8 @@ define [
             recognitionViewWidth = @$el.find(".recognition-view").width()
             windowWidth          = $window.width()
             recognitionListWidth = ((windowWidth / (recognitionViewWidth + 10))|0) * recognitionViewWidth
+
+            console.log recognitionListWidth
 
             @$el.css "width": recognitionListWidth
 
@@ -76,11 +79,12 @@ define [
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
 
-                @centerBoard()
+            #@centerBoard()
 
         _prependNewRecognition: (model) =>
             @_addRecognition model, true
             @$el.masonry 'reload'
+
         _addRecognition: (model, prepend=false) =>
             recognitionView = new RecognitionView
                 model: model
