@@ -2,6 +2,8 @@ define [
     'backbone'
     'jquery'
 
+    'lessc!less/views/BoardView.less'
+
     'app/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
@@ -13,6 +15,8 @@ define [
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
 
     return class BoardView extends Backbone.View
+        className: 'board-view'
+
         initialize: ->
             @recognitionsCollection = new RecognitionsCollection
             @recognitionsCollection.fetch success: =>
@@ -21,6 +25,15 @@ define [
             setInterval =>
                 @updateBoard()
             , 30000           
+
+        centerBoard: ->
+            $window = $ window
+
+            recognitionViewWidth = @$el.find(".recognition-view").width()
+            windowWidth          = $window.width()
+            recognitionListWidth = ((windowWidth / (recognitionViewWidth + 10))|0) * recognitionViewWidth
+
+            @$el.css "width": recognitionListWidth
 
         updateBoard: =>
             newRecognitions = new RecognitionsCollection
@@ -42,6 +55,7 @@ define [
                     offset: @recognitionsCollection.meta.offset
                 }
             }
+        
         render: =>
             ###
             This will render all the recognitions. The code here is separate
@@ -65,6 +79,7 @@ define [
                 , 500
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
+                    
         _prependNewRecognition: (model) =>
             @_addRecognition model, true
             @$el.masonry 'reload'
@@ -75,4 +90,3 @@ define [
             recognitionView.render()
             if prepend then @$el.prepend(recognitionView.el) else @$el.append(recognitionView.el)
             recognitionView.$el.addClass 'animate'
-            
