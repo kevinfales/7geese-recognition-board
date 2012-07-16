@@ -145,7 +145,7 @@ doBuild = (cb) ->
                 callback null
 
         (callback) ->
-            jam = spawnChild 'jam', [ 'compile', '-i', 'app/main', '-o', 'jam/require.js' ]
+            jam = spawnChild 'jam', [ 'compile', '-i', 'app/main', '-e',  'cs', '-e', 'coffee-script', '-e', 'less', '-e', 'lessc', '-e', 'text', '-a', '-o', 'jam/require.js' ]
             jam.on 'exit', ->
                 callback null
 
