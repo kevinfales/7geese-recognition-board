@@ -37,8 +37,6 @@ define [
             windowWidth          = $window.width()
             recognitionListWidth = ((windowWidth / (recognitionViewWidth + 10))|0) * recognitionViewWidth
 
-            console.log recognitionListWidth
-
             @$el.css "width": recognitionListWidth
 
         updateBoard: =>
@@ -79,7 +77,7 @@ define [
                 , =>
                     @$el.find('.recognition-view').addClass('animate');
 
-            #@centerBoard()
+            @centerBoard()
 
         _prependNewRecognition: (model) =>
             @_addRecognition model, true

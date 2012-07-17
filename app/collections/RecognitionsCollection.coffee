@@ -21,10 +21,13 @@ define [
             dataType: 'jsonp'
             data:
                 verb: 'badge_awarded'
+                limit: 20
+
         fetch: (options={}) =>
             mergedOptions = _.clone @defaultGetParams
             mergedOptions = $.extend true, mergedOptions, options
             super mergedOptions
+
         url: =>
             url = "#{settings.hostname}/api/v1/stream/"
             if Backbone.Tastypie.apiKey and Backbone.Tastypie.apiKey.username.length and Backbone.Tastypie.apiKey.key.length
