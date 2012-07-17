@@ -1,0 +1,49 @@
+.comments {
+    @comment_bg_color: #f3f7f9;
+    @shaded_border_color: #e2ecf2;
+    @lit_border_color: white;
+
+    border-top: 1px solid @shaded_border_color;
+
+    .comment {
+        padding: 9px 12px;
+        background-color: @comment_bg_color;
+        font-size: 0.75em;
+
+        border-top: 1px solid @lit_border_color;
+        border-bottom: 1px solid @shaded_border_color;
+
+        &:last-child {
+            border-bottom-right-radius: 6px;
+            border-bottom-left-radius: 6px;
+
+            border-bottom: none;
+        }
+
+        .profile-pic {
+            float: left;
+            clear: right;
+            width: 46px;
+            img {
+                width: 37px;
+                height: 37px;
+            }
+        }
+
+        .body {
+            float: left;
+            clear: right;
+            width: 257px;
+
+            .message {
+                margin-bottom: 5px;
+            }
+
+            .time {
+                font-size: 0.875em;
+            }
+        }
+
+        .clear { clear: both; }
+    }
+}

@@ -1,0 +1,36 @@
+@import "lib/normalize.less";
+@import "../lib/variables.less";
+@import "../lib/mixins.less";
+
+body {
+    background-color: @7g_background;
+    color: black;
+    //color: rgba(0, 0, 0, 0.55);
+    text-shadow: 0 1px 0 white;
+}
+
+a {
+    text-decoration: none;
+    color: @7g_blue;
+}
+
+input[type="text"] {
+    border: 1px solid @7g_border_color;
+    border-radius: 5px;
+    background-color: lighten(@7g_background, 3%);
+    color: lighten(black, 37.5%);
+    padding: 5px;
+    .box-shadows-2(inset 0 2px 0 rgba(0, 0, 0, 0.03), 0 1px 0 rgba(255, 255, 255, 1));
+    .transition(all 100ms ease-in-out);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    .box-shadows-2(inset 0 2px 0 rgba(0, 0, 0, 0.0625), 0 0 15px rgba(20, 128, 255, 0.25));
+    border-color: darken(@7g_border_color, 12.5%);
+    background-color: white;
+}
+
+input[type="submit"] {
+    .sg-btn();
+}

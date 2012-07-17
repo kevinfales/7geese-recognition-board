@@ -1,0 +1,24 @@
+<div class="avatar-badge">
+  <img alt="Avatar" class="img-avatar" src="<%= target.image_medium.url %>">
+  <img alt="Badge" class="img-badge" src="<%= object.image_medium.url %>">
+</div>
+
+<div class="recipient-name">
+  <h3 class="name"><%= target.displayName %></h3>
+</div>
+
+<div class="message">
+  <div class="rule"></div>
+
+  <span class="reason-by all-caps">
+
+    <span class="header">was recognized for</span><br>
+    <span class="reason"><%= object.displayName %></span><br>
+    <span class="footer">by <strong><%= actor.displayName %></strong> for</span>:
+
+  </span>
+
+  <br>
+
+  <span class="recognition-message">&ldquo;<%= content %>&rdquo;</span>
+</div>
